@@ -1,0 +1,196 @@
+Bài 1: Giải phương trình bậc 2
+import math
+
+i = 1
+while 1:
+    print("Giai phuong trinh bac hai lan ", i)
+    a=float(input("Nhap vao a=\n"))
+    b=float(input("Nhap vao b=\n"))
+    c=float(input("Nhap vao c=\n"))
+    if a == 0 :
+        if b == 0:
+            if c == 0:
+                print("Phuong trinh co vo so nghiem")
+            else:
+                print("Phuong trinh vo nghiem")
+        else:
+            print("Phuong trinh co nghiem x=",-c/b)
+    else:
+        denta = b*b - 4*a*c
+        if denta < 0:
+            x1 = complex(-b/(2*a),math.sqrt(-denta)/(2*a))
+            x2 = complex(-b/(2*a),-math.sqrt(-denta)/(2*a))
+            print("Phuong trinh co nghiem phuc x1=", x1," va x2=", x2)
+        elif denta == 0:
+            print("Phuong trinh co nghiem x=",-b / (2*a))
+        else:
+            x1=(-b + math.sqrt(denta)) / (2*a)
+            x2=(-b - math.sqrt(denta)) / (2*a)
+            print("Phuong trinh co nghiem x1=",x1," va x2=",x2)
+    string=str.lower(input("Nhap no de thoat:\n"))
+    if string=="no":
+        break
+    else:
+        i = i + 1
+	note: complex(x,y)=x+yi, str.lower(string ) chuyển toàn bộ string thành chữ thường
+Bài 2:Đếm tiền: Chuong trinh nhap vao n trieu dong, hoi co the doi n trieu do thanh pao nhieu to 10000,5000,2000,1000,500,200
+dola = int(input("Nhap vao n trieu dong: \n"))
+dem=0
+for n1 in range(dola//10000+1):
+    for n2 in range(dola//5000+1):
+        for n3 in range(dola//2000+1):
+            for n4 in range(dola // 1000+1):
+                for n5 in range(dola // 500+1):
+                    for n6 in range(dola // 200+1):
+                        if n1*10000+n2*5000+n3*2000+n4*1000+n5*500+n6*200==dola:
+                            dem+=1
+                            print("Cach thu ",dem," la: ",n1,"to 10000 ",n2," to 5000",n3," to 2000",n4," to 1000", n5,"to 500",n6," to 200")
+
+if dem==0:
+    print("Khong co cach nao doi tien")
+Note: tương tự bài toán: có bao nhiêu cặp tam giác vuông có cạnh huyền nhỏ hơn 100
+
+Bài 3:Bài toán sắp xếp họ tên theo kiểu vietnamses
+3.1: Ưu tiên tên-> đệm->họ
+	
+import string
+def Funtion_XuLiChuoi(listString):
+    e=0
+    stringmoi=""
+
+    L1=str.split(listString," ",1,3)
+
+    for e in range (len(L1)):
+        stringmoi= stringmoi+L1[len(L1)-e-1]+" "
+    return stringmoi
+
+def Funtion_TimChuoiMin(ArrayList):
+    e=0
+    i=0
+    ArrayListMoi=[]
+    ArrayListCuoiCung=[]
+
+    for e in range (len(ArrayList)):
+        ArrayListMoi.append(Funtion_XuLiChuoi(ArrayList[e]))
+
+    ArrayListMoi.sort()
+
+    for i in range (len(ArrayListMoi)):
+        ArrayListCuoiCung.append(Funtion_XuLiChuoi(ArrayListMoi[i]))
+    return ArrayListCuoiCung
+
+ArrayList=["Nguyen Van Trung","Ta Bao Thang","Nguyen Quang Quy","Hoang Duy Phuc"]
+print(Funtion_TimChuoiMin(ArrayList))
+
+3.2:Ưu tiên tên -> họ - > tên đệm
+	#sử lí chuỗi
+def Funtion_XuLiChuoi01(String):
+    i=0
+    L1=str.split(String)
+    a=len(L1)
+    for i in range(a):
+        if i==0:
+            s=L1[a-1]+" "+L1[0]
+        if i>0 and i<a-1:
+            s=s+" "+L1[i]
+    return s
+#xu li chuoi
+def Funtion_XuLiChuoi02(String):
+    i=0
+    L1=str.split(String)
+    a=len(L1)
+    trungGian=L1[0]
+    for i in range(a):
+        if i==1:
+            s=L1[1]+" ";
+        if i>1:
+            s=s+" "+L1[i]
+    s=s+" "+trungGian
+    return s
+#sap xep
+def Funtion_SapXep(list):
+    a=len(list)
+    i=0
+    L1,L2=[],[]
+
+    for i in range (a):
+        L1.append(Funtion_XuLiChuoi01(list[i]))
+    L1.sort()
+    for i in range (a):
+        L2.append(Funtion_XuLiChuoi02(L1[i]))
+    return L2
+list=["Nguyễn Văn Trung","Lâm Đăng Vệ Huy","Tạ Quang Tùng","Tống Văn Vinh","Cao Thanh Tùng"]
+print("Ban vua nhap: ",list)
+listSapXep=Funtion_SapXep(list)
+print(listSapXep)
+/dao nguoc duoc mang nhung khong dao nguoc duoc chuoi
+
+4.In ra tất cả các xâu nhị phân độ dài n
+
+# Bai toan in ra man hinh xau nhi phan do dai N
+# Ex: N=3 => 000;001;010;011;100;101;111;110
+#bien 3->11 Vi du trong he 8 la buoc co so de chuyen thanh 00000011
+import  string
+# Chia nhi phan
+def Funtion_NhiPhan(n):
+    if n==0:
+        return "0"
+    elif n==1:
+        return "1"
+    else:
+        return Funtion_NhiPhan(n%2)+Funtion_NhiPhan(n//2)
+# Dao nguoc chuoi
+def Funtion_DaoNguoc(s):
+    i=len(s) - 1
+    s1=""
+    while i>=0:
+        s1=s1+s[i]
+        i=i-1
+    return s1
+# Gioi han bien dem
+def Funtion_Limit(n):
+    i=1
+    s=1
+    while i<=n:
+       s=s*2
+       i=i+1
+    return s-1
+n=int(input("Nhap vao chieu dai xau nhi phan: "))
+i=1
+s=""
+print(Funtion_Limit(n))
+for i in range (Funtion_Limit(n)+1):
+    s=Funtion_NhiPhan(i)
+    if len(s) < n:
+        while len(s) < n:
+            s=s+"0"
+    print(Funtion_DaoNguoc(s))
+5.Chương trình nhập vào 1 dãy số, tính tổng số dương, số âm
+# Lập trình để
+#     Nhập một dãy số từ bàn phím
+#     Tính trung bình cộng của các số dương và trung bình các số âm trong dãy trên
+n=int(input("Bạn muốn khảo sát bao nhiêu số xin hãy nhập tại đây: "))
+a=[]
+i=int(0)
+sumDuong = 0
+sumAm = 0
+for i in range (n):
+    a.append(float(input("Nhập vào: ")))
+
+for i in range (n):
+    if a[i] >0:
+        sumDuong=sumDuong + a[i]
+    else:
+        sumAm = sumAm + a[i]
+
+print("Tổng các số dương trong dãy vừa nhập là: ",sumDuong)
+print("Tổng các số âm trong dãy vừa nhập là: ",sumAm)
+
+
+
+
+
+
+
+
+
